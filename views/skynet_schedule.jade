@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+  .row
+    .col-xs-12
+      each e in events
+        p #{e.name} - #{e.time}
+
+  .row
+    .col-xs-12
+      form#scheduleTask(name="addtask",method="post",action="/skynet/add_scheduled_event")
+          .form-group
+            label Pick a time that the event will fire
+            input.form-control#chooseDate(type="datetime-local",class="form-control",name="startdate")
+          .form-group
+            label Pick a name for the event
+            input.form-control#chooseName(name="name" )
+          .row
+            .form-group.col-xs-6
+              label Find an action
+              input.form-control#findAction
+            .form-group.col-xs-6
+              select(multiple,class="form-control action-list",name="actions")
+                option Actions will be shown here
+          button#btnSubmit(type="submit") submit
