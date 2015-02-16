@@ -16,4 +16,12 @@ actionSchema.methods.getAction = function(){
   };
 };
 
+actionSchema.methods.sendMessage = function(){
+  sky.message({
+    "devices": this.action.target_uuids,
+    "payload": JSON.parse(this.action.message),
+    "qos": 0
+  });
+};
+
 module.exports = mongoose.model('Action', actionSchema);

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  each a in actions
+    p #{a.name}
+    a(href='/skynet/action/perform/#{a._id}') Perform #{a.action}
+
+  .row
+    .col-xs-12
+      form#scheduleTask(name="addtask",method="post",action="/skynet/add_action")
+          .form-group
+            label Pick a name for the event
+            input.form-control#chooseName(name="name")
+          .form-group
+            label Payload. Insert as a JSON object
+            textarea.form-control#chooseName(name="messages",rows="10")
+          .form-group#uuids
+            label Enter some UUID's
+            a#more Add More
+            input.form-control(name="uuids")
+          button#btnSubmit(type="submit") submit

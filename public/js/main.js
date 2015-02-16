@@ -16,5 +16,8 @@ $(document).ready(function() {
     });
   });
 
+  $("#more").click(function(event){
+    $("#uuids").append("<input type='text' name='uuids' class='form-control'></input>")
+  });
 
 });

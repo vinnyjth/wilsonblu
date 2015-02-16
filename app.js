@@ -23,6 +23,17 @@ var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
 var skynet = require('meshblu');
 
+
+/**
+ * Setup Meshblu.
+ */
+sky = skynet.createConnection({
+  "uuid": "62c60f00-b25c-11e4-af42-05b1c38a24b9",
+  "token": "6c829d9537344bfd8221c1bb121159f70ca6b57e",
+  "server": "ws://104.236.238.9", // optional - defaults to ws://meshblu.octoblu.com
+  "port": 80  // optional - defaults to 80
+});
+
 /**
  * Controllers (route handlers).
  */
@@ -51,15 +62,6 @@ mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
 
-/**
- * Setup Meshblu.
- */
-conn = skynet.createConnection({
-  "uuid": "62c60f00-b25c-11e4-af42-05b1c38a24b9",
-  "token": "6c829d9537344bfd8221c1bb121159f70ca6b57e",
-  "server": "ws://104.236.238.9", // optional - defaults to ws://meshblu.octoblu.com
-  "port": 80  // optional - defaults to 80
-});
 /**
  * Express configuration.
  */
@@ -112,7 +114,10 @@ app.get('/skynet', skynetController.index)
 app.get('/skynet/status', skynetController.getSkynetStatus)
 app.get('/skynet/schedule', skynetController.getSkynetSchedule)
 app.post('/skynet/add_scheduled_event', skynetController.postScheduledEvent)
+app.post('/skynet/add_action', skynetController.postAction)
 app.get('/skynet/action_search/:term', skynetController.getSkynetActionSearch)
+app.get('/skynet/action/perform/:action_id', skynetController.getSkynetActionPerform)
+app.get('/skynet/actions', skynetController.getSkynetAction)
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
